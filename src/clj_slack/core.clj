@@ -1,16 +1,14 @@
 (ns clj-slack.core
-  (:require [http.async.client :as http]))
+  (:require [org.httpkit.client :as http]))
 
 (def ^:dynamic *access-token* nil)
 (def ^:dynamic *api-base* "https://api.slack.com/api/")
 
 (defn slack-request [endpoint]
   (println "Making a request!")
-  (with-open [client (http/create-client)]
-    (let [response (http/GET client (str *api-base* endpoint))]
-      (-> response
-          http/await
-          http/string))))
+  (let [response (http/get (str *api-base* endpoint))]
+    ;; Other keys :headers :body :error :opts
+    (println "response's status: " (:status @response1))))
 
 (defn users-list []
   (slack-request "users.list"))
