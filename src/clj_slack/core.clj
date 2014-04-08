@@ -7,13 +7,21 @@
 (def ^:dynamic *access-token* nil)
 (def ^:dynamic *api-base* "https://api.slack.com/api/")
 
+(defn send-request [params]
+  (let [response (http/get (str *api-base* params))]
+    (json/read-str (:body @response))))
+
+(defn build-params
+  ([endpoint] (str endpoint "?token=" *access-token*))
+  ([endpoint channel-id] (str endpoint "?token=" *access-token* "&channel=" channel-id)))
+
 (defn slack-request
   ([endpoint]
-     (let [response (http/get (str *api-base* endpoint "?token=" *access-token*))]
-       (json/read-str (:body @response))))
+     (let [params (build-params endpoint)]
+       (send-request params)))
   ([endpoint id]
-     (let [response (http/get (str *api-base* endpoint "?token=" *access-token* "&channel=" id))]
-       (json/read-str (:body @response)))))
+     (let [params (build-params endpoint id)]
+       (send-request params))))
 
 (defn auth-test []
   (slack-request "auth.test"))
