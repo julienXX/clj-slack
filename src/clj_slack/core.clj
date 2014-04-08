@@ -20,6 +20,9 @@
 (defn groups-list []
   (slack-request "groups.list"))
 
+(defn channels-list []
+  (slack-request "channels.list"))
+
 (defn -main []
   "I don't do a whole lot."
   (println "Hello, World!"))
