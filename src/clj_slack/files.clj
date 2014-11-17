@@ -5,7 +5,7 @@
 (defn info
   "Gets information about a team file."
   [file-id]
-  (slack-request "files.info" file-id))
+  (slack-request "files.info" {"file" file-id}))
 
 (defn list
   "Lists & filters team files."

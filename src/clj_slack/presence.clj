@@ -4,4 +4,4 @@
 (defn set
   "Manually set user presence."
   [presence]
-  (slack-request "presence.set" presence))
+  (slack-request "presence.set" {"presence" presence}))
