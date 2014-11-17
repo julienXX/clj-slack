@@ -3,5 +3,6 @@
   (:refer-clojure :exclude [test]))
 
 (defn test
+  "Checks authentication & identity."
   []
   (slack-request "auth.test"))
