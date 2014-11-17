@@ -30,6 +30,8 @@ user=> (clj-slack.users/list)
 
 ## To Do
 - [ ] Add tests
+- [ ] Update docstrings with params
+- [ ] Handle optional params
 - [ ] File upload
 
 ## License
