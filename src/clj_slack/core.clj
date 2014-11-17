@@ -14,13 +14,13 @@
 
 (defn make-query-string [m]
   (->> (for [[k v] m]
-         (str "&" k "=" v))
+         (str k "=" v))
        (interpose "&")
        (apply str)))
 
 (defn build-params
   ([endpoint query-map]
-     (str endpoint "?token=" access-token (make-query-string query-map))))
+     (str endpoint "?token=" access-token "&" (make-query-string query-map))))
 
 (defn slack-request
   ([endpoint]
