@@ -25,15 +25,3 @@
   ([endpoint id]
      (let [params (build-params endpoint id)]
        (send-request params))))
-
-(defn groups-list
-  []
-  (slack-request "groups.list"))
-
-(defn channels-list
-  []
-  (slack-request "channels.list"))
-
-(defn channels-history
-  [channel-id]
-  (slack-request "channels.history" channel-id))
