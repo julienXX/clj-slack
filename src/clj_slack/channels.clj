@@ -4,7 +4,7 @@
 
 (defn create
   "Creates a channel."
-  [channel-id name]
+  [name]
   (slack-request "channels.create" {"name" name}))
 
 (defn history
