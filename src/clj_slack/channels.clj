@@ -2,6 +2,11 @@
   (:use [clj-slack.core :only [slack-request]])
   (:refer-clojure :exclude [list]))
 
+(defn create
+  "Creates a channel."
+  [channel-id name]
+  (slack-request "channels.create" {"name" name}))
+
 (defn history
   "Fetches history of messages and events from a channel."
   [channel-id]
