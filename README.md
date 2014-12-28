@@ -43,7 +43,3 @@ user=> (clj-slack.users/list)
 Copyright (C) 2014 Julien Blanchard
 
 Distributed under the Eclipse Public License, the same as Clojure.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/julienXX/clj-slack/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
