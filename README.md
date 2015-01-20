@@ -4,35 +4,41 @@ clj-slack is a Clojure library to talk to the [Slack](http://slack.com) REST API
 
 ![Clojars Project](http://clojars.org/org.julienxx/clj-slack/latest-version.svg)
 
-## Usage
+## Basic Usage
 
-This is on clojars, of course. Just add ```[clj-slack "0.1.0"]``` to your ```:dependencies``` in your project.clj file.
+This is on clojars, of course. Just add ```[clj-slack "0.1.1"]``` to your ```:dependencies``` in your project.clj file.
 
-Add a .lein-env at the root of your project with something like:
+If you intend to use clj-slack with a single organization, add a .lein-env at the root of your project with something like:
 
 ```clojure
 {:slack-token "YOUR_SLACK_API_TOKEN"}
 ```
 
+In a REPL:
 ```clojure
-λ lein repl
-nREPL server started on port 53171 on host 127.0.0.1
-REPL-y 0.3.0
-Clojure 1.6.0
-    Docs: (doc function-name-here)
-          (find-doc "part-of-name-here")
-  Source: (source function-name-here)
- Javadoc: (javadoc java-object-or-class-here)
-    Exit: Control+D or (exit) or (quit)
- Results: Stored in vars *1, *2, *3, an exception in *e
+(require 'clj-slack.users)
+(clj-slack.users/list)
+```
+will give you the list of your team users for example.
 
-user=> (require 'clj-slack.users)
-nil
-user=> (clj-slack.users/list)
-{...}
+## Advanced Usage
+
+Two macros are available:
+
+* with-access-token allows you to use an arbitrary token when you need to query multiple organizations for example.
+```clojure
+(require 'clj-slack.users)
+(with-access-token "another token" (clj-slack.users/list))
+```
+
+* with-api-url allows you to use another URL than Slack's API URL for debugging purposes.
+```clojure
+(require 'clj-slack.users)
+(with-api-url "http://localhost:8080/" (clj-slack.users/list))
 ```
 
 ## To Do
+- [ ] Proper documentation
 - [ ] Add tests
 - [ ] Update docstrings with params
 - [ ] Handle optional params
