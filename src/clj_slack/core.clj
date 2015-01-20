@@ -4,8 +4,8 @@
    [org.httpkit.client :as http]
    [clojure.data.json :as json]))
 
-(def api-base "https://slack.com/api/")
-(def access-token (str (:slack-token env)))
+(def ^:dynamic api-base "https://slack.com/api/")
+(def ^:dynamic access-token (str (:slack-token env)))
 
 (defn send-request
   [params]
