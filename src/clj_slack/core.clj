@@ -28,3 +28,11 @@
   ([endpoint query-map]
      (let [params (build-params endpoint query-map)]
        (send-request params))))
+
+(defmacro with-api-url [new-url & body]
+ `(binding [api-base ~new-url]
+    ~@body))
+
+(defmacro with-access-token [new-token & body]
+ `(binding [access-token ~new-token]
+    ~@body))
