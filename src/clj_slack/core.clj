@@ -2,7 +2,8 @@
   (:require
    [environ.core :refer [env]]
    [org.httpkit.client :as http]
-   [clojure.data.json :as json]))
+   [clojure.data.json :as json])
+  (:import [java.net URLEncoder]))
 
 (def ^:dynamic api-base "https://slack.com/api/")
 (def ^:dynamic access-token (str (:slack-token env)))
@@ -14,25 +15,25 @@
 
 (defn make-query-string [m]
   (->> (for [[k v] m]
-         (str k "=" v))
+         (str k "=" (URLEncoder/encode v "UTF-8")))
        (interpose "&")
        (apply str)))
 
 (defn build-params
   ([endpoint query-map]
-     (str endpoint "?token=" access-token "&" (make-query-string query-map))))
+   (str endpoint "?token=" access-token "&" (make-query-string query-map))))
 
 (defn slack-request
   ([endpoint]
-     (slack-request endpoint {}))
+   (slack-request endpoint {}))
   ([endpoint query-map]
-     (let [params (build-params endpoint query-map)]
-       (send-request params))))
+   (let [params (build-params endpoint query-map)]
+     (send-request params))))
 
 (defmacro with-api-url [new-url & body]
- `(binding [api-base ~new-url]
-    ~@body))
+  `(binding [api-base ~new-url]
+     ~@body))
 
 (defmacro with-access-token [new-token & body]
- `(binding [access-token ~new-token]
-    ~@body))
+  `(binding [access-token ~new-token]
+     ~@body))
