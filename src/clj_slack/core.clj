@@ -8,9 +8,15 @@
 (def ^:dynamic api-base "https://slack.com/api/")
 (def ^:dynamic access-token (str (:slack-token env)))
 
+(defn connection
+  [& {:keys [api-url token]
+      :or {api-url api-base
+           token access-token}}]
+  {:api-url api-url :token token})
+
 (defn send-request
-  [params]
-  (let [response (http/get (str api-base params))]
+  [connection params]
+  (let [response (http/get (str (:api-url connection) params))]
     (json/read-str (:body @response))))
 
 (defn make-query-string [m]
@@ -20,15 +26,15 @@
        (apply str)))
 
 (defn build-params
-  ([endpoint query-map]
-   (str endpoint "?token=" access-token "&" (make-query-string query-map))))
+  ([connection endpoint query-map]
+   (str endpoint "?token=" (:token connection) "&" (make-query-string query-map))))
 
 (defn slack-request
-  ([endpoint]
-   (slack-request endpoint {}))
-  ([endpoint query-map]
-   (let [params (build-params endpoint query-map)]
-     (send-request params))))
+  ([& {:keys [connection endpoint query]
+       :or {connection connection
+            query-map {}}}]
+   (let [params (build-params connection endpoint query)]
+     (send-request connection params))))
 
 (defmacro with-api-url [new-url & body]
   `(binding [api-base ~new-url]
