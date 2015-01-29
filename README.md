@@ -10,34 +10,17 @@ This is on clojars, of course. Just add ```[clj-slack "0.1.2"]``` to your ```:de
 
 Get your access token [here](https://api.slack.com/web).
 
-If you intend to use clj-slack with a single organization, add a .lein-env at the root of your project with something like:
+Your need to create a connection map like ```{:api-url "https://slack.com/api" :token "YOUR TOKEN"}``` and pass it as the first argument of every functions in clj-slack. Of course you can change api-url for debugging or testing purposes.
 
-```clojure
-{:slack-token "YOUR_SLACK_API_TOKEN"}
-```
-
-In a REPL:
+Example in a REPL:
 ```clojure
 (require 'clj-slack.users)
-(clj-slack.users/list)
+(def connection {:api-url "https://slack.com/api" :token "YOUR TOKEN"})
+(clj-slack.users/list connection)
 ```
 will give you the list of your team users for example.
 
-## Advanced Usage
-
-Two macros are available:
-
-* with-access-token allows you to use an arbitrary token when you need to query multiple organizations for example.
-```clojure
-(require 'clj-slack.users)
-(with-access-token "another token" (clj-slack.users/list))
-```
-
-* with-api-url allows you to use another URL than Slack's API URL for debugging purposes.
-```clojure
-(require 'clj-slack.users)
-(with-api-url "http://localhost:8080/" (clj-slack.users/list))
-```
+clj-slack will throw an Exception if the map you're trying to use is not valid.
 
 ## To Do
 - [ ] Proper documentation
@@ -48,6 +31,6 @@ Two macros are available:
 
 ## License
 
-Copyright (C) 2014 Julien Blanchard
+Copyright (C) 2014-2015 Julien Blanchard
 
 Distributed under the Eclipse Public License, the same as Clojure.
