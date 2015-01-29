@@ -35,8 +35,7 @@
 
 (defn slack-request
   ([connection endpoint]
-   (let [params (build-params connection endpoint {})]
-     (send-request connection params)))
+   (slack-request connection endpoint {}))
   ([connection endpoint query]
    (let [params (build-params connection endpoint query)]
      (send-request connection params))))
