@@ -3,15 +3,15 @@
 
 (defn all
   "Searches for messages and files matching a query."
-  [query]
-  (slack-request "search.all" {"query" query}))
+  [connection query]
+  (slack-request connection "search.all" {"query" query}))
 
 (defn files
   "Searches for files matching a query."
-  [query]
-  (slack-request "search.files" {"query" query}))
+  [connection query]
+  (slack-request connection "search.files" {"query" query}))
 
 (defn messages
   "Searches for messages matching a query."
-  [query]
-  (slack-request "search.messages" {"query" query}))
+  [connection query]
+  (slack-request connection "search.messages" {"query" query}))

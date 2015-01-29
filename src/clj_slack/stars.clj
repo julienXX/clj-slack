@@ -4,5 +4,5 @@
 
 (defn list
   "Lists stars for a user."
-  []
-  (slack-request "stars.list"))
+  [connection]
+  (slack-request connection "stars.list"))
