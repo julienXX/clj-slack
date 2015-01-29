@@ -1,16 +1,18 @@
 (ns clj-slack.core
   (:require
    [org.httpkit.client :as http]
-   [clojure.data.json :as json])
+   [clojure.data.json :as json]
+   [schema.core :as s])
   (:import [java.net URLEncoder]))
 
+(def Connection
+  "A schema for a Slack API connection."
+  {:api-url s/Str :token s/Str})
 
 (defn verify
-  "Accept a map containing api-url, token"
+  "Checks the connection map."
   [connection]
-  (if (or (empty? (connection :api-url)) (empty? (connection :token)))
-    (throw (Exception. "Please check your connection, it needs to be a map with an api-url and your token."))
-    connection))
+  (s/validate Connection connection))
 
 (defn send-request
   [connection params]
