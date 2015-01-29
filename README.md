@@ -4,9 +4,9 @@ clj-slack is a Clojure library to talk to the [Slack](http://slack.com) REST API
 
 ![Clojars Project](http://clojars.org/org.julienxx/clj-slack/latest-version.svg)
 
-## Basic Usage
+## Usage
 
-This is on clojars, of course. Just add ```[clj-slack "0.1.2"]``` to your ```:dependencies``` in your project.clj file.
+This is on clojars, of course. Just add ```[clj-slack "0.2.0"]``` to your ```:dependencies``` in your project.clj file.
 
 Get your access token [here](https://api.slack.com/web).
 
