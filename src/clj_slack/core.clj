@@ -6,26 +6,30 @@
   (:import [java.net URLEncoder]))
 
 (def Connection
-  "A schema for a Slack API connection."
+  "A schema for a Slack API connection"
   {:api-url s/Str :token s/Str})
 
-(defn verify
-  "Checks the connection map."
+(defn- verify
+  "Checks the connection map"
   [connection]
   (s/validate Connection connection))
 
-(defn send-request
+(defn- send-request
+  "Sends the http request with formatted params"
   [connection params]
   (let [response (http/get (str (:api-url (verify connection)) params))]
     (json/read-str (:body @response))))
 
-(defn make-query-string [m]
+(defn- make-query-string
+  "Transforms a map into url params"
+  [m]
   (->> (for [[k v] m]
          (str k "=" (URLEncoder/encode v "UTF-8")))
        (interpose "&")
        (apply str)))
 
-(defn build-params
+(defn- build-params
+  "Builds the full URL (endpoint + params)"
   ([connection endpoint query-map]
    (str "/" endpoint "?token=" (:token (verify connection)) "&" (make-query-string query-map))))
 
