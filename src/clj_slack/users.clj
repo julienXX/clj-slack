@@ -1,18 +1,18 @@
 (ns clj-slack.users
-  (:use [clj-slack.core :only [slack-request access-token]])
+  (:use [clj-slack.core :only [slack-request]])
   (:refer-clojure :exclude [list]))
 
 (defn info
   "Gets information about a user."
-  [user-id]
-  (slack-request "users.info" {"user" user-id}))
+  [connection user-id]
+  (slack-request connection "users.info" {"user" user-id}))
 
 (defn list
   "Lists all users in a Slack team."
-  []
-  (slack-request "users.list"))
+  [connection]
+  (slack-request connection "users.list"))
 
 (defn set-active
   "Marks a user as active."
-  []
-  (slack-request "users.setActive"))
+  [connection]
+  (slack-request connection "users.setActive"))

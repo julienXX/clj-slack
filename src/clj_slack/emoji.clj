@@ -4,5 +4,5 @@
 
 (defn list
   "Lists custom emoji for a team."
-  []
-  (slack-request "emoji.list"))
+  [connection]
+  (slack-request connection "emoji.list"))

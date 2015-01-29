@@ -4,5 +4,5 @@
 
 (defn test
   "Checks authentication & identity."
-  []
-  (slack-request "auth.test"))
+  [connection]
+  (slack-request connection "auth.test"))

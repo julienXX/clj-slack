@@ -1,16 +1,20 @@
 (ns clj-slack.core
   (:require
-   [environ.core :refer [env]]
    [org.httpkit.client :as http]
    [clojure.data.json :as json])
   (:import [java.net URLEncoder]))
 
-(def ^:dynamic api-base "https://slack.com/api/")
-(def ^:dynamic access-token (str (:slack-token env)))
+
+(defn verify
+  "Accept a map containing api-url, token"
+  [connection]
+  (if (or (empty? (connection :api-url)) (empty? (connection :token)))
+    (throw (Exception. "Please check your connection, it needs to be a map with an api-url and your token."))
+    connection))
 
 (defn send-request
-  [params]
-  (let [response (http/get (str api-base params))]
+  [connection params]
+  (let [response (http/get (str (:api-url (verify connection)) params))]
     (json/read-str (:body @response))))
 
 (defn make-query-string [m]
@@ -20,20 +24,13 @@
        (apply str)))
 
 (defn build-params
-  ([endpoint query-map]
-   (str endpoint "?token=" access-token "&" (make-query-string query-map))))
+  ([connection endpoint query-map]
+   (str "/" endpoint "?token=" (:token (verify connection)) "&" (make-query-string query-map))))
 
 (defn slack-request
-  ([endpoint]
-   (slack-request endpoint {}))
-  ([endpoint query-map]
-   (let [params (build-params endpoint query-map)]
-     (send-request params))))
-
-(defmacro with-api-url [new-url & body]
-  `(binding [api-base ~new-url]
-     ~@body))
-
-(defmacro with-access-token [new-token & body]
-  `(binding [access-token ~new-token]
-     ~@body))
+  ([connection endpoint]
+   (let [params (build-params connection endpoint {})]
+     (send-request connection params)))
+  ([connection endpoint query]
+   (let [params (build-params connection endpoint query)]
+     (send-request connection params))))
