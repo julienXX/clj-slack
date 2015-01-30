@@ -2,6 +2,11 @@
   (:use [clj-slack.core :only [slack-request]])
   (:refer-clojure :exclude [list]))
 
+(defn get-presence
+  "Gets user presence information."
+  [connection user-id]
+  (slack-request connection "users.getPresence" {"user" user-id}))
+
 (defn info
   "Gets information about a user."
   [connection user-id]
@@ -16,3 +21,8 @@
   "Marks a user as active."
   [connection]
   (slack-request connection "users.setActive"))
+
+(defn set-presence
+  "Manually sets user presence."
+  [connection presence]
+  (slack-request connection "users.setPresence" {"user" user-id "presence" presence}))
