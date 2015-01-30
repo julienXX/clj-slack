@@ -5,15 +5,26 @@
   (:import [java.net URLEncoder]))
 
 
+(defn verify-api-url
+  [connection]
+  (assert
+   (and (string? (:api-url connection))
+        (and (not (empty? (:api-url connection)))
+             (not (nil? (re-find #"^https?:\/\/" (:api-url connection))))))
+   (str "clj-slack: API URL is not valid. :api-url has to be a valid URL (https://slack.com/api usually), but is " (pr-str (:api-url connection)))))
+
+(defn verify-token
+  [connection]
+  (assert
+   (and (string? (:token connection))
+        (not (empty? (:token connection))))
+   (str "clj-slack: Access token is not valid. :token has to be a non-empty string, but is " (pr-str (:token connection)))))
+
 (defn verify
   "Checks the connection map"
   [connection]
-  (assert
-   (and (string? (:api-url connection)) (and (not (empty? (:api-url connection))) ()))
-   (str "clj-slack: API URL is not valid. api-url has to be a valid URL (https://slack.com/api usually), but is " (pr-str (:api-url connection))))
-  (assert
-   (and (string? (:token connection)) (not (empty? (:token connection))))
-   (str "clj-slack: token is not valid. token has to be a non-empty string, but is " (pr-str (:token connection))))
+  (verify-api-url connection)
+  (verify-token connection)
   connection)
 
 (defn- send-request
