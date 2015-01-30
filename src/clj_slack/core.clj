@@ -1,18 +1,31 @@
 (ns clj-slack.core
   (:require
    [org.httpkit.client :as http]
-   [clojure.data.json :as json]
-   [schema.core :as s])
+   [clojure.data.json :as json])
   (:import [java.net URLEncoder]))
 
-(def Connection
-  "A schema for a Slack API connection"
-  {:api-url s/Str :token s/Str})
 
-(defn- verify
+(defn verify-api-url
+  [connection]
+  (assert
+   (and (string? (:api-url connection))
+        (and (not (empty? (:api-url connection)))
+             (not (nil? (re-find #"^https?:\/\/" (:api-url connection))))))
+   (str "clj-slack: API URL is not valid. :api-url has to be a valid URL (https://slack.com/api usually), but is " (pr-str (:api-url connection)))))
+
+(defn verify-token
+  [connection]
+  (assert
+   (and (string? (:token connection))
+        (not (empty? (:token connection))))
+   (str "clj-slack: Access token is not valid. :token has to be a non-empty string, but is " (pr-str (:token connection)))))
+
+(defn verify
   "Checks the connection map"
   [connection]
-  (s/validate Connection connection))
+  (verify-api-url connection)
+  (verify-token connection)
+  connection)
 
 (defn- send-request
   "Sends the http request with formatted params"
