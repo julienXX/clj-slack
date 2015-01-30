@@ -2,6 +2,16 @@
   (:use [clj-slack.core :only [slack-request]])
   (:refer-clojure :exclude [list]))
 
+(defn archive
+  "Archives a private group."
+  [connection channel-id]
+  (slack-request connection "groups.archive" {"channel" channel-id}))
+
+(defn close
+  "Closes a private group."
+  [connection channel-id]
+  (slack-request connection "groups.close" {"channel" channel-id}))
+
 (defn create
   "Creates a private group."
   [connection name]
@@ -42,6 +52,11 @@
   [connection channel-id timestamp]
   (slack-request connection "groups.mark" {"channel" channel-id "ts" timestamp}))
 
+(defn open
+  "Opens a private group."
+  [connection channel-id]
+  (slack-request connection "groups.open" {"channel" channel-id}))
+
 (defn rename
   "Rename a private group."
   [connection channel-id name]
@@ -56,3 +71,8 @@
   "Sets the topic for a private group."
   [connection channel-id topic]
   (slack-request connection "groups.setTopic" {"channel" channel-id "topic" topic}))
+
+(defn unarchive
+  "Unarchives a private group."
+  [connection channel-id]
+  (slack-request connection "groups.unarchive" {"channel" channel-id}))
