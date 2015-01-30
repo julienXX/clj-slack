@@ -2,6 +2,11 @@
   (:use [clj-slack.core :only [slack-request]])
   (:refer-clojure :exclude [list]))
 
+(defn archive
+  "Archives a channel."
+  [connection channel-id]
+  (slack-request connection "channels.archive" {"channel" channel-id}))
+
 (defn create
   "Creates a channel."
   [connection name]
@@ -61,3 +66,8 @@
   "Sets the topic for a channel."
   [connection channel-id topic]
   (slack-request connection "channels.setTopic" {"channel" channel-id "topic" topic}))
+
+(defn unarchive
+  "Unarchives a channel."
+  [connection channel-id]
+  (slack-request connection "channels.unarchive" {"channel" channel-id}))
