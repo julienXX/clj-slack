@@ -1,5 +1,5 @@
 (ns clj-slack.chat
-  (:use [clj-slack.core :only [slack-request]]))
+  (:use [clj-slack.core :only [slack-request stringify-keys]]))
 
 (defn delete
   "Deletes a message."
@@ -8,8 +8,14 @@
 
 (defn post-message
   "Sends a message to a channel."
-  [connection channel-id text]
-  (slack-request connection "chat.postMessage" {"channel" channel-id "text" text}))
+  ([connection channel-id text]
+     (post-message channel-id text {}))
+  ([connection channel-id text extras]
+     (->> extras
+          stringify-keys
+          (merge {"channel" channel-id
+                  "text" text})
+          (slack-request connection "chat.postMessage"))))
 
 (defn update
   "Sends a message to a channel."

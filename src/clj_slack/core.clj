@@ -52,3 +52,11 @@
   ([connection endpoint query]
    (let [params (build-params connection endpoint query)]
      (send-request connection params))))
+
+(defn stringify-keys
+  "Creates a new map whose keys are all strings."
+  [m]
+  (into {} (for [[k v] m]
+             (if (keyword? k)
+                 [(name k) v]
+                 [(str k) v]))))
