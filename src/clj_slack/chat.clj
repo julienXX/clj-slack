@@ -1,10 +1,10 @@
 (ns clj-slack.chat
   (:use [clj-slack.core :only [slack-request]]))
 
-(defn ^:private parse-extras
-  "Takes a sequence and turns it into a hashmap where keys are strings."
-  [extras]
-  (into {} (for [[k v] (partition 2 extras)]
+(defn ^:private stringify-keys
+  "Creates a new map whose keys are all strings."
+  [m]
+  (into {} (for [[k v] m]
              (if (keyword? k)
                  [(name k) v]
                  [(str k) v]))))
@@ -16,10 +16,12 @@
 
 (defn post-message
   "Sends a message to a channel."
-  [connection channel-id text & extras]
-  (let [extras-map (parse-extras extras)
-        post-message-args (merge {"channel" channel-id "text" text} extras-map)]
-    (slack-request connection "chat.postMessage" post-message-args)))
+  ([connection channel-id text]
+     (post-message channel-id text {}))
+  ([connection channel-id text extras]
+     (let [extras-map (stringify-keys extras)
+           post-message-args (merge {"channel" channel-id "text" text} extras-map)]
+       (slack-request connection "chat.postMessage" post-message-args))))
 
 (defn update
   "Sends a message to a channel."
