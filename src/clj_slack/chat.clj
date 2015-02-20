@@ -1,13 +1,5 @@
 (ns clj-slack.chat
-  (:use [clj-slack.core :only [slack-request]]))
-
-(defn ^:private stringify-keys
-  "Creates a new map whose keys are all strings."
-  [m]
-  (into {} (for [[k v] m]
-             (if (keyword? k)
-                 [(name k) v]
-                 [(str k) v]))))
+  (:use [clj-slack.core :only [slack-request stringify-keys]]))
 
 (defn delete
   "Deletes a message."
