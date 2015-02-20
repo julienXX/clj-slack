@@ -2,7 +2,11 @@
 
 clj-slack is a Clojure library to talk to the [Slack](http://slack.com) REST API. It supports almost the entire Slack API.
 
+## Documentation
+
 Slack API methods are described [here](https://api.slack.com/methods).
+
+clj-slack documentation is available [here](http://julienblanchard.com/clj-slack/).
 
 ## Usage
 
@@ -23,7 +27,6 @@ will give you the list of your team users.
 clj-slack will throw an Exception if the map you're trying to use is not valid.
 
 ## To Do
-- [ ] Proper documentation
 - [ ] Add tests
 - [ ] Update docstrings with params
 - [ ] Handle optional params
