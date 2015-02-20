@@ -8,7 +8,7 @@ Slack API methods are described [here](https://api.slack.com/methods).
 
 ## Usage
 
-This is on clojars, of course. Just add ```[clj-slack "0.2.2"]``` to your ```:dependencies``` in your project.clj file.
+This is on clojars, of course. Just add ```[clj-slack "0.3.0"]``` to your ```:dependencies``` in your project.clj file.
 
 Get your access token [here](https://api.slack.com/web).
 
