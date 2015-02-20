@@ -2,8 +2,6 @@
 
 clj-slack is a Clojure library to talk to the [Slack](http://slack.com) REST API. It supports almost the entire Slack API.
 
-![Clojars Project](http://clojars.org/org.julienxx/clj-slack/latest-version.svg)
-
 Slack API methods are described [here](https://api.slack.com/methods).
 
 ## Usage
