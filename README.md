@@ -20,7 +20,7 @@ Example in a REPL:
 (def connection {:api-url "https://slack.com/api" :token "YOUR TOKEN"})
 (clj-slack.users/list connection)
 ```
-will give you the list of your team users for example.
+will give you the list of your team users.
 
 clj-slack will throw an Exception if the map you're trying to use is not valid.
 
