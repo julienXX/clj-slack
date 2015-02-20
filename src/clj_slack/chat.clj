@@ -1,14 +1,13 @@
 (ns clj-slack.chat
   (:use [clj-slack.core :only [slack-request]]))
 
-(defn- parse-extras
-  "Takes a sequence and turns it into a hashmap whose keys are strings"
+(defn ^:private parse-extras
+  "Takes a sequence and turns it into a hashmap where keys are strings."
   [extras]
-  (let [extras-map (apply hash-map extras)]
-    (into {} (for [[k v] extras-map]
-               (if (keyword? k)
+  (into {} (for [[k v] (partition 2 extras)]
+             (if (keyword? k)
                  [(name k) v]
-                 [(str k) v])))))
+                 [(str k) v]))))
 
 (defn delete
   "Deletes a message."
