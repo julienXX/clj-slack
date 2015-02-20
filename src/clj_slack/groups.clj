@@ -1,5 +1,5 @@
 (ns clj-slack.groups
-  (:use [clj-slack.core :only [slack-request]])
+  (:use [clj-slack.core :only [slack-request stringify-keys]])
   (:refer-clojure :exclude [list]))
 
 (defn archive
@@ -23,9 +23,19 @@
   (slack-request connection "groups.createChild" {"channel" channel-id}))
 
 (defn history
-  "Fetches history of messages and events from a private group."
-  [connection channel-id]
-  (slack-request connection "groups.history" {"channel" channel-id}))
+  "Fetches history of messages and events from a private group.
+  Optional arguments are:
+  - latest: end of time range of messages to include in results
+  - oldest: start of time range of messages to include in results
+  - inclusive: include messages with latest or oldest timestamp in results
+  - count: number of messages to return"
+  ([connection channel-id]
+   (history connection channel-id {}))
+  ([connection channel-id optionals]
+   (->> optionals
+        stringify-keys
+        (merge {"channel" channel-id})
+        (slack-request connection "groups.history"))))
 
 (defn invite
   "Invites a user to a private group."
@@ -43,9 +53,15 @@
   (slack-request connection "groups.leave" {"channel" channel-id}))
 
 (defn list
-  "Lists private groups that the calling user has access to."
-  [connection]
-  (slack-request connection "groups.list"))
+  "Lists private groups that the calling user has access to.
+  Optional argument:
+  - exclude_archived: don't return archived groups"
+  ([connection]
+   (list connection {}))
+  ([connection optionals]
+   (->> optionals
+        stringify-keys
+        (slack-request connection "groups.list"))))
 
 (defn mark
   "Sets the read cursor in a private group."

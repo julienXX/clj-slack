@@ -1,5 +1,5 @@
 (ns clj-slack.channels
-  (:use [clj-slack.core :only [slack-request]])
+  (:use [clj-slack.core :only [slack-request stringify-keys]])
   (:refer-clojure :exclude [list]))
 
 (defn archive
@@ -13,9 +13,19 @@
   (slack-request connection "channels.create" {"name" name}))
 
 (defn history
-  "Fetches history of messages and events from a channel."
-  [connection channel-id]
-  (slack-request connection "channels.history" {"channel" channel-id}))
+  "Fetches history of messages and events from a channel.
+  Optional arguments are:
+  - latest: end of time range of messages to include in results
+  - oldest: start of time range of messages to include in results
+  - inclusive: include messages with latest or oldest timestamp in results
+  - count: number of messages to return"
+  ([connection channel-id]
+   (history connection channel-id {}))
+  ([connection channel-id optionals]
+   (->> optionals
+        stringify-keys
+        (merge {"channel" channel-id})
+        (slack-request connection "channels.history"))))
 
 (defn info
   "Gets information about a channel."
@@ -43,9 +53,15 @@
   (slack-request connection "channels.leave" {"channel" channel-id}))
 
 (defn list
-  "List channels"
-  [connection]
-  (slack-request connection "channels.list"))
+  "List channels.
+  Optional argument:
+  - exclude_archived: don't return archived channels"
+  ([connection]
+   (list connection {}))
+  ([connection optionals]
+   (->> optionals
+        stringify-keys
+        (slack-request connection "channels.list"))))
 
 (defn mark
   "Sets the read cursor in a channel."
