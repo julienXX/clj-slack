@@ -24,5 +24,5 @@
 
 (defn set-presence
   "Manually sets user presence."
-  [connection presence]
+  [connection user-id presence]
   (slack-request connection "users.setPresence" {"user" user-id "presence" presence}))
