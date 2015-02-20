@@ -31,7 +31,7 @@
   "Sends the http request with formatted params"
   [connection params]
   (let [response (http/get (str (:api-url (verify connection)) params))]
-    (json/read-str (:body @response))))
+    (json/read-str (:body @response) :key-fn clojure.core/keyword)))
 
 (defn- make-query-string
   "Transforms a map into url params"
