@@ -19,9 +19,11 @@
   ([connection channel-id text]
      (post-message channel-id text {}))
   ([connection channel-id text extras]
-     (let [extras-map (stringify-keys extras)
-           post-message-args (merge {"channel" channel-id "text" text} extras-map)]
-       (slack-request connection "chat.postMessage" post-message-args))))
+     (->> extras
+          stringify-keys
+          (merge {"channel" channel-id
+                  "text" text})
+          (slack-request connection "chat.postMessage"))))
 
 (defn update
   "Sends a message to a channel."
