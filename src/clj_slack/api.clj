@@ -1,5 +1,5 @@
 (ns clj-slack.api
-  (:use [clj-slack.core :only [slack-request]])
+  (:use [clj-slack.core :only [slack-request stringify-keys]])
   (:refer-clojure :exclude [test]))
 
 (defn test
@@ -8,7 +8,7 @@
   - error: error response to return
   - foo: example property to return"
   ([connection]
-     (slack-request connection "auth.test"))
+     (test connection {}))
   ([connection optionals]
      (->> optionals
           stringify-keys
