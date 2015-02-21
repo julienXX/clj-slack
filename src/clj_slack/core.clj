@@ -58,5 +58,5 @@
   [m]
   (into {} (for [[k v] m]
              (if (keyword? k)
-                 [(name k) v]
-                 [(str k) v]))))
+               [(name k) v]
+               [(str k) v]))))

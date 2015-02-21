@@ -17,7 +17,7 @@
   ([connection file-id optionals]
    (->> optionals
         stringify-keys
-        (merge {"file" file-id })
+        (merge {"file" file-id})
         (slack-request connection "files.info"))))
 
 (defn list

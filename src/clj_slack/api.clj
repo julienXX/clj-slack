@@ -8,8 +8,8 @@
   - error: error response to return
   - foo: example property to return"
   ([connection]
-     (test connection {}))
+   (test connection {}))
   ([connection optionals]
-     (->> optionals
-          stringify-keys
-          (slack-request connection "auth.test"))))
+   (->> optionals
+        stringify-keys
+        (slack-request connection "auth.test"))))
