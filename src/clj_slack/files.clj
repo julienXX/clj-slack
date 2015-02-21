@@ -36,7 +36,6 @@
         stringify-keys
         (slack-request connection "files.list"))))
 
-;; TODO should channels option receive a sequence?
 (defn upload
   "Creates or uploads an existing file. Content can be a String, File or InputStream
   Optional arguments are:
@@ -46,12 +45,12 @@
   - initial_comment: initial comment to add to file
   - channels: list of channels to share the file into"
   ([connection content]
-     (upload connection content {}))
+   (upload connection content {}))
   ([connection content optionals]
-     (let [params (->> optionals
-                       stringify-keys)]
-       (if (string? content)
-         ;; if content is string use get request (e.g. post a snippet)
-         (slack-request connection "files.upload" (merge params {"content" content}))
-         ;; otherwise assume it is a file or an inputstream and use post
-         (slack-post-request connection "files.upload" (merge params {"file" content}))))))
+   (let [params (->> optionals
+                     stringify-keys)]
+     (if (string? content)
+       ;; if content is string use get request (e.g. post a snippet)
+       (slack-request connection "files.upload" (merge params {"content" content}))
+       ;; otherwise assume it is a file or an inputstream and use post
+       (slack-post-request connection "files.upload" (merge params {"file" content}))))))
