@@ -35,3 +35,20 @@
    (->> optionals
         stringify-keys
         (slack-request connection "files.list"))))
+
+(defn upload
+  " create or upload an existing file.
+  Optional arguments are:
+  - file: file contents via multipart/form-data
+  - content: file contents via POST var
+  - filetype: internal file type identifier
+  - filename: filename of file
+  - title: title of file
+  - initial_comment: initial comment to add to file
+  - channels: list of channels to share the file into"
+  ([connection]
+   (upload connection {}))
+  ([connection optionals]
+   (->> optionals
+        stringify-keys
+        (slack-request connection "files.upload"))))
