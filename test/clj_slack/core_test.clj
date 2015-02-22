@@ -2,6 +2,6 @@
   (:require [clojure.test :refer :all]
             [clj-slack.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest token-present
+  (testing "API token is present in the build system"
+    (is (System/getenv "TOKEN"))))
