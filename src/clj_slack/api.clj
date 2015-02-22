@@ -12,4 +12,4 @@
   ([connection optionals]
    (->> optionals
         stringify-keys
-        (slack-request connection "auth.test"))))
+        (slack-request connection "api.test"))))
