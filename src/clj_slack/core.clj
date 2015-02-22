@@ -28,9 +28,10 @@
   connection)
 
 (defn- send-request
-  "Sends the http request with formatted params"
-  [connection params]
-  (let [response (http/get (str (:api-url (verify connection)) params))]
+  "Sends a GET http request with formatted params"
+  [url params]
+  (let [full-url (str url params)
+        response (http/get full-url)]
     (json/read-str (:body @response) :key-fn clojure.core/keyword)))
 
 (defn- send-post-request
@@ -60,12 +61,21 @@
       {:name k :content v :filename (.getName v)}
       {:name k :content v})))
 
+(defn stringify-keys
+  "Creates a new map whose keys are all strings."
+  [m]
+  (into {} (for [[k v] m]
+             (if (keyword? k)
+               [(name k) v]
+               [(str k) v]))))
+
 (defn slack-request
   ([connection endpoint]
    (slack-request connection endpoint {}))
   ([connection endpoint query]
-   (let [params (build-params connection endpoint query)]
-     (send-request connection params))))
+   (let [url (-> connection verify :api-url)
+         params (build-params connection endpoint query)]
+     (send-request url params))))
 
 (defn slack-post-request
   [connection endpoint post-params]
@@ -77,11 +87,3 @@
                                stringify-keys
                                build-multiparts)]
     (send-post-request url multiparts-params)))
-
-(defn stringify-keys
-  "Creates a new map whose keys are all strings."
-  [m]
-  (into {} (for [[k v] m]
-             (if (keyword? k)
-               [(name k) v]
-               [(str k) v]))))
