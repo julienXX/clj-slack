@@ -10,6 +10,7 @@
   "Sends a message to a channel.
   Optional arguments are:
   - username: name of bot
+  - as_username: pass true to post the message as the authed user, instead of as a bot
   - parse: change how messages are treated
   - link_names: find and link channel names and usernames
   - attachments: structured message attachments
