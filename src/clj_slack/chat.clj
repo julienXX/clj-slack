@@ -1,5 +1,12 @@
 (ns clj-slack.chat
-  (:use [clj-slack.core :only [slack-request stringify-keys]]))
+  (:use [clj-slack.core :only [slack-request stringify-keys]]
+        [clojure.data.json :only [write-str]]))
+
+(defn- serialize-attachments [options]
+  (let [attachments (:attachments options)]
+    (if (and attachments (not (string? attachments)))
+      (assoc options :attachments (write-str attachments))
+      options)))
 
 (defn delete
   "Deletes a message."
@@ -22,6 +29,7 @@
    (post-message connection channel-id text {}))
   ([connection channel-id text optionals]
    (->> optionals
+        serialize-attachments
         stringify-keys
         (merge {"channel" channel-id
                 "text" text})
