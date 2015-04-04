@@ -12,7 +12,7 @@ clj-slack documentation is available [here](http://julienblanchard.com/clj-slack
 
 ## Usage
 
-This is on [Clojars](https://clojars.org/org.julienxx/clj-slack) of course. Just add ```[org.julienxx/clj-slack "0.4.2"]``` to your ```:dependencies``` in your project.clj file.
+This is on [Clojars](https://clojars.org/org.julienxx/clj-slack) of course. Just add ```[org.julienxx/clj-slack "0.4.3"]``` to your ```:dependencies``` in your project.clj file.
 
 Get your access token [here](https://api.slack.com/web).
 
