@@ -1,5 +1,5 @@
 (ns clj-slack.search
-  (:use [clj-slack.core :only [slack-request stringify-keys]]))
+  (:require [clj-slack.core :refer [slack-request stringify-keys]]))
 
 (defn all
   "Searches for messages and files matching a query.

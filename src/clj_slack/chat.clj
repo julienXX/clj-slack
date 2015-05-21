@@ -1,6 +1,6 @@
 (ns clj-slack.chat
-  (:use [clj-slack.core :only [slack-request stringify-keys]]
-        [clojure.data.json :only [write-str]]))
+  (:require [clj-slack.core :refer [slack-request stringify-keys]]
+            [clojure.data.json :refer [write-str]]))
 
 (defn- serialize-attachments [options]
   (let [attachments (:attachments options)]

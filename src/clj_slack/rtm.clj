@@ -1,5 +1,5 @@
 (ns clj-slack.rtm
-  (:use [clj-slack.core :only [slack-request]]))
+  (:require [clj-slack.core :refer [slack-request]]))
 
 (defn start
   "Starts a Real Time Messaging session."

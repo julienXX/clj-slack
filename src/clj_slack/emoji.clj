@@ -1,5 +1,5 @@
 (ns clj-slack.emoji
-  (:use [clj-slack.core :only [slack-request]])
+  (:require [clj-slack.core :refer [slack-request]])
   (:refer-clojure :exclude [list]))
 
 (defn list
