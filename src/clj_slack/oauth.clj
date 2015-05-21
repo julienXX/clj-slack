@@ -1,5 +1,5 @@
 (ns clj-slack.oauth
-  (:use [clj-slack.core :only [slack-request]]))
+  (:require [clj-slack.core :refer [slack-request]]))
 
 (defn access
   "Exchanges a temporary OAuth code for an API token."

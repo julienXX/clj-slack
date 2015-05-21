@@ -1,5 +1,5 @@
 (ns clj-slack.files
-  (:use [clj-slack.core :only [slack-request slack-post-request stringify-keys]])
+  (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]])
   (:refer-clojure :exclude [list]))
 
 (defn delete

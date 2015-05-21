@@ -1,5 +1,5 @@
 (ns clj-slack.channels
-  (:use [clj-slack.core :only [slack-request stringify-keys]])
+  (:require [clj-slack.core :refer [slack-request stringify-keys]])
   (:refer-clojure :exclude [list]))
 
 (defn archive
