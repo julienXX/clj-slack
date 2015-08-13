@@ -35,7 +35,7 @@
         response (http/get full-url)]
     (if-let [body (:body response)]
       (json/read-str body :key-fn clojure.core/keyword)
-      (log/error "Error from Slack API:" (:error @response)))))
+      (log/error "Error from Slack API:" (:error response)))))
 
 (defn- send-post-request
   "Sends a POST http request with formatted params"
