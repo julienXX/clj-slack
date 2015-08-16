@@ -34,6 +34,13 @@ You can use optional params described in [Slack API](https://api.slack.com/metho
 (clj-slack.stars/list connection {:count "2" :page "3"})
 ```
 
+Uploading a file:
+```clojure
+(require 'clj-slack.files)
+(def connection {:api-url "https://slack.com/api" :token "YOUR TOKEN"})
+(clj-slack.files/upload connection (clojure.java.io/input-stream "/path/to/file/file.ext") {:channels "CHANNEL_ID", :title "This is a file.})
+```
+
 ## To Do
 - Add tests
 
