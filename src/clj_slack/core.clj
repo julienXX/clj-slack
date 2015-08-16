@@ -1,6 +1,6 @@
 (ns clj-slack.core
   (:require
-   [org.httpkit.client :as http]
+   [clj-http.client :as http]
    [clojure.data.json :as json]
    [clojure.tools.logging :as log])
   (:import [java.net URLEncoder]))
@@ -33,15 +33,15 @@
   [url params]
   (let [full-url (str url params)
         response (http/get full-url)]
-    (if-let [body (:body @response)]
+    (if-let [body (:body response)]
       (json/read-str body :key-fn clojure.core/keyword)
-      (log/error "Error from Slack API:" (:error @response)))))
+      (log/error "Error from Slack API:" (:error response)))))
 
 (defn- send-post-request
   "Sends a POST http request with formatted params"
   [url multiparts]
   (let [response (http/post url {:multipart multiparts})]
-    (json/read-str (:body @response) :key-fn clojure.core/keyword)))
+    (json/read-str (:body response) :key-fn clojure.core/keyword)))
 
 (defn- make-query-string
   "Transforms a map into url params"
