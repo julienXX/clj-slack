@@ -5,7 +5,7 @@
 (def connection {:api-url "https://slack.com/api" :token (System/getenv "TOKEN")})
 
 (defn missing-scope? [response]
-  (and (= false (:ok response)) (= "missing_scope" (:error response))))
+  (and (false? (:ok response)) (= "missing_scope" (:error response))))
 
 (deftest team-info
   (testing "Require team info"
