@@ -9,5 +9,4 @@
 (deftest oauth-access
   (testing "Requesting a token with a temp code"
     (let [resp (clj-slack.oauth/access connection client-id client-secret "fake_temp_code" "http://example.com/fake/callback")]
-      (println resp)
-      (is (and (= false (:ok resp)) (= "invalid_code" (:error resp)))))))
+      (is (and (false? (:ok resp)) (= "invalid_code" (:error resp)))))))
