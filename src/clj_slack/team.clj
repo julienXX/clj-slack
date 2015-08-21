@@ -7,11 +7,11 @@
   count: number of items to return per page
   page: page number of results to return"
   ([connection]
-    (slack-request connection "team.accessLog"))
+    (slack-request connection "team.accessLogs"))
   ([connection optionals]
    (->> optionals
         stringify-keys
-        (slack-request connection "team.accessLog"))))
+        (slack-request connection "team.accessLogs"))))
 
 (defn info
   "Gets information about the current team."
