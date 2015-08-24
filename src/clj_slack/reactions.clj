@@ -38,3 +38,15 @@
   (->> optionals
        stringify-keys
        (slack-request connection "reactions.list")))
+
+(defn remove
+  "Removes a reaction from an item.
+  - file: file to remove reaction from
+  - file_comment: file comment to remove reaction from
+  - channel: channel where the message to remove reaction from was posted
+  - timestamp: timestamp of the message to remove reaction from"
+  [connection name optionals]
+  (->> optionals
+       stringify-keys
+       (merge {"name" name})
+       (slack-request connection "reactions.add")))
