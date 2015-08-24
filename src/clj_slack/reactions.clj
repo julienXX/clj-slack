@@ -15,3 +15,15 @@
        stringify-keys
        (merge {"name" name})
        (slack-request connection "reactions.add")))
+
+(defn get
+  "Gets reactions for an item.
+  - file: file to get reactions to
+  - file_comment: file comment to get reactions to
+  - channel: channel where the message to get reactions to was posted
+  - timestamp: timestamp of the message to get reactions to
+  - full: if true always return the complete reaction list"
+  [connection optionals]
+  (->> optionals
+       stringify-keys
+       (slack-request connection "reactions.get")))
