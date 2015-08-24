@@ -1,6 +1,7 @@
 (ns clj-slack.files-test
   (:require [clojure.test :refer :all]
-            [clj-slack.files :refer :all]))
+            [clj-slack.files :refer :all])
+  (:refer-clojure :exclude [list]))
 
 (def connection {:api-url "https://slack.com/api" :token (System/getenv "TOKEN")})
 
