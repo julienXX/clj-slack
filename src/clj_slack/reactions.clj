@@ -27,3 +27,14 @@
   (->> optionals
        stringify-keys
        (slack-request connection "reactions.get")))
+
+(defn list
+  "Lists reactions made by a user.
+  - user: show reactions made by this user. Defaults to the authed user
+  - full: if true always return the complete reaction list
+  - count: number of items to return per page
+  - page: page number of results to return."
+  [connection optionals]
+  (->> optionals
+       stringify-keys
+       (slack-request connection "reactions.list")))
