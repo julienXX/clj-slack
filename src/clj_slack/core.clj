@@ -25,7 +25,8 @@
   "Checks the connection map"
   [connection]
   (verify-api-url connection)
-  (verify-token connection)
+  (when (not (contains? connection :skip-token-validation))
+    (verify-token connection))
   connection)
 
 (defn- send-request
