@@ -40,7 +40,7 @@
 (defn join
   "Joins a channel, creating it if needed."
   [connection channel-name]
-  (slack-request connection "channels.join" {"channel" channel-name}))
+  (slack-request connection "channels.join" {"name" channel-name}))
 
 (defn kick
   "Removes a user from a channel."
