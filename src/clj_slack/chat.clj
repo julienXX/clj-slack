@@ -1,5 +1,5 @@
 (ns clj-slack.chat
-  (:require [clj-slack.core :refer [slack-request stringify-keys]]
+  (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]]
             [clojure.data.json :refer [write-str]]))
 
 (defn- serialize-attachments [options]
@@ -33,7 +33,7 @@
         stringify-keys
         (merge {"channel" channel-id
                 "text" text})
-        (slack-request connection "chat.postMessage"))))
+        (slack-post-request connection "chat.postMessage"))))
 
 (defn update
   "Sends a message to a channel."
