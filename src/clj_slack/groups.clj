@@ -37,6 +37,11 @@
         (merge {"channel" channel-id})
         (slack-request connection "groups.history"))))
 
+(defn info
+  "Gets information about a private channel"
+  [connection channel-id]
+  (slack-request connection "groups.info" {"channel" channel-id}))
+
 (defn invite
   "Invites a user to a private group."
   [connection channel-id user-id]
