@@ -62,8 +62,8 @@
   [params]
   (for [[k v] params]
     (if (instance? java.io.File v)
-      {:name k :content v :filename (.getName v)}
-      {:name k :content v})))
+      {:name k :content v :filename (.getName v) :encoding "UTF-8"}
+      {:name k :content v :encoding "UTF-8"})))
 
 (defn stringify-keys
   "Creates a new map whose keys are all strings."
