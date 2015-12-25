@@ -4,6 +4,6 @@
 
 (def connection {:api-url "https://slack.com/api" :token (System/getenv "TOKEN")})
 
-(deftest group-info
-  (testing "Require group info"
-    (is (:ok (clj-slack.groups/info connection "C03PHJ58Z")))))
+(deftest group-list
+  (testing "Listing groups"
+    (is (:ok (clj-slack.groups/list connection)))))
