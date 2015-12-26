@@ -24,7 +24,7 @@
 (defn team-info
   "Retrieves the Do Not Disturb status for users on a team."
   ([connection]
-   (teamInfo connection {}))
+   (team-info connection {}))
   ([connection optionals]
    (->> optionals
         stringify-keys
