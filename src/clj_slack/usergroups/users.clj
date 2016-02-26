@@ -1,4 +1,5 @@
 (ns clj-slack.usergroups.users
+  (:refer-clojure :exclude [update])
   (:require clojure.string
             [clj-slack.core :refer [slack-request stringify-keys]])
   (:refer-clojure :exclude [list update]))
