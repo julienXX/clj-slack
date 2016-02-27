@@ -1,4 +1,5 @@
 (ns clj-slack.chat
+  (:refer-clojure :exclude [update])
   (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]]
             [clojure.data.json :refer [write-str]]))
 
