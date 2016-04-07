@@ -49,4 +49,4 @@
   (->> optionals
        stringify-keys
        (merge {"name" name})
-       (slack-request connection "reactions.add")))
+       (slack-request connection "reactions.remove")))
