@@ -1,6 +1,6 @@
 (ns clj-slack.stars
   (:require [clj-slack.core :refer [slack-request stringify-keys]])
-  (:refer-clojure :exclude [list]))
+  (:refer-clojure :exclude [list remove]))
 
 (defn add
   "This method adds a star to an item on behalf of the authenticated user.
