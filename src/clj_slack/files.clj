@@ -36,12 +36,12 @@
         stringify-keys
         (slack-request connection "files.list"))))
 
-(defn revokePublicURL
+(defn revoke-public-url
   "This method disables public/external sharing for a file."
   [connection file]
   (slack-request connection "files.revokePublicURL" {"file" file}))
 
-(defn sharedPublicURL
+(defn shared-public-url
   "This method enables public/external sharing for a file."
   [connection file]
   (slack-request connection "files.sharedPublicURL" {"file" file}))
