@@ -36,6 +36,16 @@
         stringify-keys
         (slack-request connection "files.list"))))
 
+(defn revoke-public-url
+  "This method disables public/external sharing for a file."
+  [connection file]
+  (slack-request connection "files.revokePublicURL" {"file" file}))
+
+(defn shared-public-url
+  "This method enables public/external sharing for a file."
+  [connection file]
+  (slack-request connection "files.sharedPublicURL" {"file" file}))
+
 (defn upload
   "Creates or uploads an existing file. Content can be a String, File or InputStream
   Optional arguments are:
