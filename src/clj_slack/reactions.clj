@@ -1,4 +1,5 @@
 (ns clj-slack.reactions
+  (:refer-clojure :exclude [get list remove])
   (:require [clj-slack.core :refer [slack-request stringify-keys]]))
 
 (defn add
