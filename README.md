@@ -14,7 +14,7 @@ clj-slack documentation is available [here](http://julienblanchard.com/clj-slack
 
 This is on [Clojars](https://clojars.org/org.julienxx/clj-slack) of course. Just add ```[org.julienxx/clj-slack "0.5.4"]``` to your ```:dependencies``` in your project.clj file.
 
-Get your access token [here](https://api.slack.com/web).
+Get your access token by creating a new app or [here](https://api.slack.com/custom-integrations/legacy-tokens). If you create a new Slack app, **don't forget to add the relevant scopes to your app**.
 
 Your need to create a connection map like ```{:api-url "https://slack.com/api" :token "YOUR TOKEN"}``` and pass it as the first argument of every functions in clj-slack. Of course you can change api-url for debugging or testing purposes.
 
