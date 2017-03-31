@@ -1,4 +1,4 @@
-(ns clj-slack.mpin
+(ns clj-slack.mpim
   (:require [clj-slack.core :refer [slack-request stringify-keys]])
   (:refer-clojure :exclude [list]))
 
