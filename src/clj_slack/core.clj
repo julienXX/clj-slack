@@ -78,8 +78,14 @@
                [(name k) v]
                [(str k) v]))))
 
-(defn- request-options [connection]
-  (dissoc connection :api-url :token))
+(defn- request-options
+  "Extracts request options from slack connection map.
+  Provides sensible defaults for timeouts."
+  [connection]
+  (let [default-options {:conn-timeout 60000
+                         :socket-timeout 60000}]
+    (merge default-options
+           (dissoc connection :api-url :token))))
 
 (defn slack-request
   ([connection endpoint]
