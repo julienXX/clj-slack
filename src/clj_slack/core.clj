@@ -30,18 +30,23 @@
   connection)
 
 (defn- send-request
-  "Sends a GET http request with formatted params"
-  [url params]
+  "Sends a GET http request with formatted params.
+  Optional request options can be specified which will be passed to `clj-http` without any changes.
+  Can be useful to specify timeouts, etc."
+  [url params & [opts]]
   (let [full-url (str url params)
-        response (http/get full-url)]
+        response (http/get full-url opts)]
     (if-let [body (:body response)]
       (json/read-str body :key-fn clojure.core/keyword)
       (log/error "Error from Slack API:" (:error response)))))
 
 (defn- send-post-request
-  "Sends a POST http request with formatted params"
-  [url multiparts]
-  (let [response (http/post url {:multipart multiparts})]
+  "Sends a POST http request with formatted params.
+  Optional request options can be specified which will be passed to `clj-http` without any changes.
+  Can be useful to specify timeouts, etc."
+  [url multiparts & [opts]]
+  (let [response (http/post url (merge {:multipart multiparts}
+                                       opts))]
     (json/read-str (:body response) :key-fn clojure.core/keyword)))
 
 (defn- make-query-string
@@ -73,13 +78,22 @@
                [(name k) v]
                [(str k) v]))))
 
+(defn- request-options
+  "Extracts request options from slack connection map.
+  Provides sensible defaults for timeouts."
+  [connection]
+  (let [default-options {:conn-timeout 60000
+                         :socket-timeout 60000}]
+    (merge default-options
+           (dissoc connection :api-url :token))))
+
 (defn slack-request
   ([connection endpoint]
    (slack-request connection endpoint {}))
   ([connection endpoint query]
    (let [url (-> connection verify :api-url)
          params (build-params connection endpoint query)]
-     (send-request url params))))
+     (send-request url params (request-options connection)))))
 
 (defn slack-post-request
   [connection endpoint post-params]
@@ -90,4 +104,5 @@
                                (merge post-params)
                                stringify-keys
                                build-multiparts)]
-    (send-post-request url multiparts-params)))
+    (send-post-request url multiparts-params (request-options connection))))
+
