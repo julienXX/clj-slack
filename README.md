@@ -18,6 +18,8 @@ Get your access token by creating a new app or [here](https://api.slack.com/cust
 
 Your need to create a connection map like ```{:api-url "https://slack.com/api" :token "YOUR TOKEN"}``` and pass it as the first argument of every functions in clj-slack. Of course you can change api-url for debugging or testing purposes.
 
+You can pass (clj-http)[https://github.com/dakrone/clj-http] options in the connection map if needed.
+
 clj-slack will throw an Exception if the connection map you're trying to use is not valid.
 
 Example:
@@ -41,11 +43,16 @@ Uploading a file:
 (clj-slack.files/upload connection (clojure.java.io/input-stream "/path/to/file/file.ext") {:channels "CHANNEL_ID", :title "This is a file.})
 ```
 
-## To Do
-- Add tests
+## Testing
+
+In order to run the tests, you have to set 3 environment variables:
+- `TOKEN` a legacy Slack token
+- `CLIENT_ID` a OAuth client id
+- `CLIENT_SECRET` a OAuth client secret
+then run `lein test`.
 
 ## License
 
-Copyright (C) 2014-2017 Julien Blanchard
+Copyright (C) 2014-2018 Julien Blanchard
 
 Distributed under the Eclipse Public License, the same as Clojure.
