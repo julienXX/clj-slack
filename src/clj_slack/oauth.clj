@@ -2,12 +2,13 @@
   (:require [clj-slack.core :refer [slack-request]]))
 
 (defn access
-  "Exchanges a temporary OAuth code for an API token."
+  "Exchanges a temporary OAuth code for an API token.
+
+  Provides client-id and client-secret using HTTP Basic auth."
   [connection client-id client-secret code redirect-uri]
   (slack-request
-    (merge connection {:skip-token-validation true})
+    (merge connection {:skip-token-validation true
+                       :basic-auth [client-id client-secret]})
     "oauth.access"
-    {"client_id" client-id
-     "client_secret" client-secret
-     "code" code
+    {"code" code
      "redirect_uri" redirect-uri}))
