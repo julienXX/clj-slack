@@ -1,7 +1,6 @@
 (ns clj-slack.conversations
-  (:refer-clojure :exclude [update])
-  (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]]
-            [clojure.data.json :refer [write-str]]))
+  (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]])
+  (:refer-clojure :exclude [list]))
 
 (defn archive
   "Archives a conversation."
@@ -18,6 +17,8 @@
   Optional arguments are:
   - is_private: create a private channel
   - user_ids: a list of users (1 to 30) that will be added to the conversation"
+  ([connection name]
+   (create connection name {}))
   ([connection name optionals]
    (->> optionals
         stringify-keys
@@ -33,6 +34,8 @@
   - limit: The maximum number of items to return.
   - oldest: Start of time range of messages to include in results.
   "
+  ([connection channel-id]
+   (history connection channel-id {}))
   ([connection channel-id optionals]
    (->> optionals
         stringify-keys
@@ -44,6 +47,8 @@
   Optional arguments are:
   - include_locale: Set this to true to receive the locale for this conversation.
   "
+  ([connection channel-id]
+   (info connection channel-id {}))
   ([connection channel-id optionals]
    (->> optionals
         stringify-keys
@@ -78,6 +83,8 @@
   - limit: The maximum number of items to return.
   - types: Mix and match channel types by providing a comma-separated list of any combination of public_channel, private_channel, mpim, im
   "
+  ([connection]
+   (list connection {}))
   ([connection optionals]
    (->> optionals
         stringify-keys
@@ -89,6 +96,8 @@
   - cursor: Paginate through collections of data by setting the cursor parameter to a next_cursor attribute.
   - limit: The maximum number of items to return.
   "
+  ([connection channel-id]
+   (members connection channel-id {}))
   ([connection channel-id optionals]
    (->> optionals
         stringify-keys
@@ -102,6 +111,8 @@
   - return_im: Boolean, indicates you want the full IM channel definition in the response.
   - users: Comma separated lists of users.
   "
+  ([connection]
+   (open connection {}))
   ([connection optionals]
    (->> optionals
         stringify-keys
@@ -121,6 +132,8 @@
   - limit: The maximum number of items to return.
   - oldest: Start of time range of messages to include in results.
   "
+  ([connection channel-id timestamp]
+   (replies connection channel-id timestamp {}))
   ([connection channel-id timestamp optionals]
    (->> optionals
         stringify-keys

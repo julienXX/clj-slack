@@ -11,6 +11,8 @@
   - types: Mix and match channel types by providing a comma-separated list of any combination of public_channel, private_channel, mpim, im
   - user: Browse conversations by a specific user ID's membership.
   "
+  ([connection]
+   (conversations connection {}))
   ([connection optionals]
    (->> optionals
         stringify-keys
