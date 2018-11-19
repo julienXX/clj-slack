@@ -1,5 +1,5 @@
 (ns clj-slack.users
-  (:require [clj-slack.core :refer [slack-request]])
+  (:require [clj-slack.core :refer [slack-request stringify-keys]])
   (:refer-clojure :exclude [list]))
 
 (defn conversations
