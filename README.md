@@ -18,7 +18,7 @@ Get your access token by creating a new app or [here](https://api.slack.com/cust
 
 Your need to create a connection map like ```{:api-url "https://slack.com/api" :token "YOUR TOKEN"}``` and pass it as the first argument of every functions in clj-slack. Of course you can change api-url for debugging or testing purposes.
 
-You can pass (clj-http)[https://github.com/dakrone/clj-http] options in the connection map if needed.
+You can pass [clj-http](https://github.com/dakrone/clj-http) options in the connection map if needed.
 
 clj-slack will throw an Exception if the connection map you're trying to use is not valid.
 
