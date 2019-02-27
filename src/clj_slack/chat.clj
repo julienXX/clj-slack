@@ -3,10 +3,10 @@
   (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]]
             [clojure.data.json :refer [write-str]]))
 
-(defn- serialize-blocks [options]
-  (let [blocks (:blocks options)]
-    (if (and blocks (not (string? blocks)))
-      (assoc options :blocks (write-str blocks))
+(defn- serialize-option [option-key options]
+  (let [option-value (option-key options)]
+    (if (and option-value (not (string? option-value)))
+      (assoc options option-key (write-str option-value))
       options)))
 
 (defn delete
@@ -22,6 +22,9 @@
   - parse: change how messages are treated
   - link_names: find and link channel names and usernames
   - blocks: structured message blocks
+  - attachments: structured message attachments. (NB: Slack recommends using Blocks
+    instead of legacy attachments:
+    https://api.slack.com/messaging/composing/layouts#secondary-attachments)
   - unfurl_links: pass true to enable unfurling of primarily text-based content
   - unfurl_media: pass false to disable unfurling of media content
   - icon_url: URL to an image to use as the icon for this message
@@ -30,7 +33,8 @@
    (post-message connection channel-id text {}))
   ([connection channel-id text optionals]
    (->> optionals
-        serialize-blocks
+        (serialize-option :blocks)
+        (serialize-option :attachments)
         stringify-keys
         (merge {"channel" channel-id
                 "text" text})
