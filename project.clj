@@ -3,8 +3,8 @@
   :url "http://github.com/julienXX/clj-slack"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [clj-http "2.0.0"]
-                 [org.clojure/data.json "0.2.5"]
-                 [org.clojure/tools.logging "0.3.1"]]
+  :dependencies [[org.clojure/clojure "1.10.3"]
+                 [clj-http "3.12.1"]
+                 [org.clojure/data.json "2.2.2"]
+                 [org.clojure/tools.logging "1.1.0"]]
   :deploy-repositories [["clojars"  {:sign-releases false}]])
