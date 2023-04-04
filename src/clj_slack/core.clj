@@ -46,10 +46,10 @@
   "Sends a POST http request with formatted params.
   Optional request options can be specified which will be passed to `clj-http` without any changes.
   Can be useful to specify timeouts, etc."
-  [url token multiparts & [opts]]
-  (let [headers {"Content-Type" "application/x-www-form-urlencoded"
+  [url token post-params & [opts]]
+  (let [headers {"Content-Type" "application/json"
                  "Authorization" (str "Bearer " token)}
-        response (http/post url (merge {:multipart multiparts
+        response (http/post url (merge {:body (json/write-str post-params)
                                         :headers headers}
                                        opts))]
     (json/read-str (:body response) :key-fn clojure.core/keyword)))
@@ -66,14 +66,6 @@
   "Builds the full URL (endpoint + params)"
   ([connection endpoint query-map]
    (str "/" endpoint "?" (make-query-string query-map))))
-
-(defn- build-multiparts
-  "Builds an http-kit multiparts sequence"
-  [params]
-  (for [[k v] params]
-    (if (instance? java.io.File v)
-      {:name k :content v :filename (.getName v) :encoding "UTF-8"}
-      {:name k :content v :encoding "UTF-8"})))
 
 (defn stringify-keys
   "Creates a new map whose keys are all strings."
@@ -103,10 +95,5 @@
 (defn slack-post-request
   [{:keys [token] :as connection} endpoint post-params]
   (let [api-url (-> connection verify :api-url)
-        url (str api-url "/" endpoint)
-        multiparts-params (->> (:token connection)
-                               (hash-map :token)
-                               (merge post-params)
-                               stringify-keys
-                               build-multiparts)]
-    (send-post-request url token multiparts-params (request-options connection))))
+        url (str api-url "/" endpoint)]
+    (send-post-request url token post-params (request-options connection))))
