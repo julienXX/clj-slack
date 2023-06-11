@@ -4,7 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [clj-http "3.12.3"]
-                 [org.clojure/data.json "2.4.0"]
+                 [org.clj-commons/clj-http-lite "1.0.13"]
+                 [cheshire/cheshire "5.11.0"]
                  [org.clojure/tools.logging "1.2.4"]]
   :deploy-repositories [["clojars"  {:sign-releases false}]])

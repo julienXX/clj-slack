@@ -1,7 +1,7 @@
 (ns clj-slack.core
   (:require
-   [clj-http.client :as http]
-   [clojure.data.json :as json]
+   [clj-http.lite.client :as http]
+   [cheshire.core :as json]
    [clojure.tools.logging :as log])
   (:import [java.net URLEncoder]))
 
@@ -39,7 +39,7 @@
                  "Authorization" (str "Bearer " token)}
         response (http/get full-url (merge {:headers headers} opts))]
     (if-let [body (:body response)]
-      (json/read-str body :key-fn clojure.core/keyword)
+      (json/parse-string body true)
       (log/error "Error from Slack API:" (:error response)))))
 
 (defn- send-post-request
@@ -49,10 +49,10 @@
   [url token post-params & [opts]]
   (let [headers {"Content-Type" "application/json"
                  "Authorization" (str "Bearer " token)}
-        response (http/post url (merge {:body (json/write-str post-params)
+        response (http/post url (merge {:body (json/generate-string post-params)
                                         :headers headers}
                                        opts))]
-    (json/read-str (:body response) :key-fn clojure.core/keyword)))
+    (json/parse-string (:body response) true)))
 
 (defn- make-query-string
   "Transforms a map into url params"
