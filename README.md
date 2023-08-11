@@ -53,6 +53,6 @@ then run `lein test`.
 
 ## License
 
-Copyright (C) 2014-2019 Julien Blanchard
+Copyright (C) 2014-2023 Julien Blanchard
 
 Distributed under the Eclipse Public License, the same as Clojure.
