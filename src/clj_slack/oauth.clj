@@ -9,6 +9,6 @@
   (slack-request
     (merge connection {:skip-token-validation true
                        :basic-auth [client-id client-secret]})
-    "oauth.access"
+    "oauth.v2.access"
     {"code" code
      "redirect_uri" redirect-uri}))
