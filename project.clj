@@ -1,4 +1,4 @@
-(defproject org.julienxx/clj-slack "0.8.1"
+(defproject org.julienxx/clj-slack "0.8.2"
   :description "Slack REST API wrapper"
   :url "http://github.com/julienXX/clj-slack"
   :license {:name "Eclipse Public License"
