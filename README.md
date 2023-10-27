@@ -12,7 +12,7 @@ clj-slack documentation is available [here](http://julienblanchard.com/clj-slack
 
 ## Usage
 
-This is on [Clojars](https://clojars.org/org.julienxx/clj-slack) of course. Just add ```[org.julienxx/clj-slack "0.8.2"]``` to your ```:dependencies``` in your project.clj file.
+This is on [Clojars](https://clojars.org/org.julienxx/clj-slack) of course. Just add ```[org.julienxx/clj-slack "0.8.3"]``` to your ```:dependencies``` in your project.clj file.
 
 Get your access token by creating a new app or [here](https://api.slack.com/custom-integrations/legacy-tokens). If you create a new Slack app, **don't forget to add the relevant scopes to your app**.
 
@@ -53,6 +53,6 @@ then run `lein test`.
 
 ## License
 
-Copyright (C) 2014-2019 Julien Blanchard
+Copyright (C) 2014-2023 Julien Blanchard
 
 Distributed under the Eclipse Public License, the same as Clojure.
