@@ -1,12 +1,12 @@
 (ns clj-slack.chat
   (:refer-clojure :exclude [update])
   (:require [clj-slack.core :refer [slack-request slack-post-request stringify-keys]]
-            [clojure.data.json :refer [write-str]]))
+            [cheshire.core :refer [generate-string]]))
 
 (defn- serialize-option [option-key options]
   (let [option-value (option-key options)]
     (if (and option-value (not (string? option-value)))
-      (assoc options option-key (write-str option-value))
+      (assoc options option-key (generate-string option-value))
       options)))
 
 (defn delete
